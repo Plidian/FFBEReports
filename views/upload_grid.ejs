@@ -1,0 +1,265 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Output</title>
+  <base href="/"><link rel="stylesheet" type="text/css" href="/stylesheets/personal.css"/>
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon"/ >
+  <link href="https://unpkg.com/tabulator-tables@4.7.2/dist/css/tabulator.min.css" rel="stylesheet">
+</head>
+<body>
+  <script type="text/javascript" src="/javascripts/pageFunctions.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.7.2/dist/js/tabulator.min.js"></script>
+  <script type="text/javascript" src="/javascripts/FileSaver.min.js"></script>
+
+  <script type="text/javascript">
+  var clientCSVPots= <%- JSON.stringify (potsCSV) %>
+  var clientJSONPots= <%- JSON.stringify (potsJSON) %>
+  var clientCSVCactuars= <%- JSON.stringify (cactuarsCSV) %>
+  var clientJSONCactuars= <%- JSON.stringify (cactuarsJSON) %>
+  var clientCSVMoogles= <%- JSON.stringify (mooglesCSV) %>
+  var clientJSONMoogles= <%- JSON.stringify (mooglesJSON) %>
+  var clientCSVUnits= <%- JSON.stringify ( unitsCSV ) %>
+  var clientJSONUnits= <%- JSON.stringify ( unitsJSON ) %>
+  var clientCSVInventory= <%- JSON.stringify ( inventoryCSV ) %>
+  var clientJSONInventory= <%- JSON.stringify ( inventoryJSON ) %>
+  var clientCSVConsumables= <%- JSON.stringify ( consumablesCSV ) %>
+  var clientJSONConsumables= <%- JSON.stringify ( consumablesJSON ) %>
+  var clientuserName= <%- JSON.stringify (userName) %>;
+  var clientDownloadJSONInventory= <%- JSON.stringify ( inventoryDownloadJSON ) %>
+
+window.onload=function(){
+// Set a variable for our button element.
+const scrollToTopButton = document.getElementById('js-top');
+
+// Let's set up a function that shows our scroll-to-top button if we scroll beyond the height of the initial window.
+const scrollFunc = () => {
+  // Get the current scroll value
+  let y = window.scrollY;
+
+  // If the scroll value is greater than the window height, let's add a class to the scroll-to-top button to show it!
+  if (y > 0) {
+    scrollToTopButton.className = "top-link show";
+  } else {
+    scrollToTopButton.className = "top-link hide";
+  }
+};
+
+window.addEventListener("scroll", scrollFunc);
+
+const scrollToTop = () => {
+  // Let's set a variable for the number of pixels we are from the top of the document.
+  const c = document.documentElement.scrollTop || document.body.scrollTop;
+
+  // If that number is greater than 0, we'll scroll back to 0, or the top of the document.
+  // We'll also animate that scroll with requestAnimationFrame:
+  // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+  if (c > 0) {
+    window.requestAnimationFrame(scrollToTop);
+    // ScrollTo takes an x and a y coordinate.
+    // Increase the '10' value to get a smoother/slower scroll!
+    window.scrollTo(0, c - c / 10);
+  }
+};
+
+// When the button is clicked, run our ScrolltoTop function above!
+scrollToTopButton.onclick = function(e) {
+  e.preventDefault();
+  scrollToTop();
+}
+}
+
+  </script>
+  <a class="top-link hide" href="" id="js-top">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6"><path d="M12 6H0l6-6z"/></svg>
+  <span class="screen-reader-text">Back to top</span>
+</a
+  <a href="#" id="scrollToTopButton" class="withToggleSelector" style="display: none;" title="Scroll back to the top"><span></span></a>
+  <div id="header" class="headerRain">
+    <div class="headerContent">
+      <div class="headerTitle"></div>
+    </div>
+    <div class="navigationMenu">
+      <div class="desktop">
+        <div class="menuLogo" onclick="window.location.href='/'" title="Return to homepage"></div>
+      </div>
+    </div>
+		<div class="headerTopButtons"></div>
+		<div class="bannerBackground"></div>
+		<div class="bannerPicture"></div>
+		<div class="bannerPicturePerson"></div>
+	</div>
+<div id="pots_div" style="display:inline-block;">
+  <h1>Magic Pots/Doors</h1>
+    <button onclick="togglePots()" id="potsButton">Hide Pots/Doors</button>
+    <button onclick="exportCSVPots(clientCSVPots,clientuserName)" id="potsDownloadButton">Download Pots/Doors</button>
+    <div><pre id="pots_doors" style="display: none;"><%= potsCSV %></pre></div>
+    <div id="pots_doorsTable" style="display: inline-block;"></div>
+    <script type="text/javascript">
+    //console.log("Pots",clientJSONPots.length);
+    if(clientJSONPots.length!=0){
+    var pots_doorsTable = new Tabulator("#pots_doorsTable", {layout:"fitDataTable", data:clientJSONPots,columns:
+    [
+      {title:"Name",field:"UnitName"},
+      {title:"Count",field:"NumberOwned"},
+      {title:"Stat",field:"Stat"},
+      {title:"Effect",field:"effect"}
+    ]
+  });
+  }
+  if(clientJSONPots.length==0){
+    var myPot = document.getElementById('pots_div');
+    var potsButton = document.getElementById('potsButton');
+    myPot.style.display = 'none';
+    potsButton.display = 'none';
+    potsButton.innerHTML = 'Show Pots/Doors';
+  }
+    </script>
+  </div>
+  <div id="cac_div" style:"display:inline-block;">
+  <h1>Cactuars/Snappers</h1>
+    <button onclick="toggleCactuar()" id="cactuarButton">Hide Cactuars/Snappers</button>
+    <button onclick="exportCSVCactuars(clientCSVCactuars,clientuserName)" id="cactuarsDownloadButton">Download Cactuars/Snappers</button>
+    <div><pre id="cactuar" style="display: none;"><%= cactuarsCSV %></pre></div>
+    <div id="cactuarsTable" style="display: inline-block;"></div>
+    <script type="text/javascript">
+    //console.log("cactuars",clientJSONCactuars.length);
+    if(clientJSONCactuars.length!=0){
+    var cactuarstable = new Tabulator("#cactuarsTable", {layout:"fitDataTable", data:clientJSONCactuars,columns:
+    [
+      {title:"Name",field:"UnitName"},
+      {title:"Count",field:"NumberOwned"},
+      {title:"Level",field:"Level"}
+    ]});}
+    if(clientJSONCactuars.length==0){
+      var myCac = document.getElementById('cac_div');
+      var cactuarButton = document.getElementById('cactuarButton');
+      myCac.style.display = 'none';
+      cactuarButton.display = 'none';
+      cactuarButton.innerHTML = 'Show Cactuars/Snappers';
+    }
+    </script>
+  </div>
+  <div id="moog_div" style:"display:inline-block;">
+  <h1>Moogles</h1>
+    <button onclick="toggleMoogles()" id="mooglesButton" style="display: inline-block;">Hide Moogles</button>
+    <button onclick="exportCSVMoogles(clientCSVMoogles,clientuserName)" id="mooglesDownloadButton">Download Moogles</button>
+    <div><pre id="moogles" style="display: none;"><%= mooglesCSV %></pre></div>
+    <div id="mooglesTable" style="display: inline-block;"></div>
+    <script type="text/javascript">
+    //console.log("Moogles",clientJSONMoogles.length);
+    if(clientJSONMoogles.length!=0){
+    var table = new Tabulator("#mooglesTable", {layout:"fitDataTable", data:clientJSONMoogles, columns:
+    [
+      {title:"Name",field:"UnitName"},
+      {title:"Count",field:"NumberOwned"},
+      {title:"TrustPercent",field:"Trust"},
+      {title:"TrustName",field:"TrustName"}
+    ]});}
+    if(clientJSONMoogles.length==0){
+      var myMog = document.getElementById('moog_div');
+      var mooglesButton = document.getElementById('mooglesButton');
+      //console.log("mooglesButton",mooglesButton);
+      myMog.style.display='none';
+      mooglesButton.display='none';
+      mooglesButton.innerHTML='Show Moogles';
+    }
+    </script>
+  </div>
+	<!--//<div id="wdr-component"></div><link href="node_modules/webdatarocks/webdatarocks.min.css" rel="stylesheet"/><script src="node_modules/webdatarocks/webdatarocks.toolbar.min.js"></script>
+	//<script src="node_modules/webdatarocks/webdatarocks.js"></script>
+	//<script>var pivot = new WebDataRocks({	container: "#wdr-component",toolbar: true,report: {dataSource: {data: '+sortedItems+'},"slice": '+JSON.stringify(rptslice1)+',"options":'+JSON.stringify(rptoptions1)+', "formats":'+JSON.stringify(rptformats1)+'}});</script>-->
+  <div id="csv_div" style="display: block;">
+  <h1>CSV Units</h1>
+    <button onclick="toggleCSV()" id="csvButton">Show CSV</button>
+    <button onclick="exportCSVUnits(clientCSVUnits,clientuserName)" id="CSVUnitsDownloadButton">Download Units CSV</button>
+    <div><pre id="csv" style="display: none;"><%= unitsCSV %></pre></div>
+    <script type="text/javascript">
+    if(clientJSONUnits.length==0){
+    var myCsv = document.getElementById('csv_div');
+    var csvButton = document.getElementById('csvButton');
+    myCsv.style.display='none';
+    csvButton.display='none';
+    }
+    </script>
+  </div>
+  <div id="json_div" style="display: block;">
+  <h1>JSON Units</h1>
+    <button onclick="toggleJSON()" id="JSONButton">Show JSON</button>
+    <button onclick="exportJSONUnits(clientJSONUnits,clientuserName)" id="JSONUnitsDownloadButton">Download Units JSON</button>
+    <div><pre id="json" style="display: none;"><%= unitsJSON %></pre></div>
+    <script type="text/javascript">
+    if(clientJSONUnits.length==0){
+    var myJson = document.getElementById('json_div');
+    var JSONButton = document.getElementById('csvButton');
+    myJson.style.display='none';
+    JSONButton.display='none';
+    }
+    </script>
+  </div>
+  <div id="inv_div" style="display: block;">
+	 <h1>Inventory</h1>
+    <button onclick="toggleInventory()" id="inventoryButton">Hide Inventory</button>
+    <button onclick="exportCSVInventory(clientCSVInventory,clientuserName)" id="CSVInventoryDownloadButton">Download CSV Inventory</button>
+    <button onclick="exportJSONInventory(clientDownloadJSONInventory,clientuserName)" id="JSONInventoryDownloadButton">Download JSON Inventory</button>
+    <div><pre id="inventory" style="display: none;"><%= inventoryCSV %></pre></div>
+    <div id="inventoryTable" style="display: inline-block;"></div>
+    <script type="text/javascript">
+    //console.log("inventory",clientJSONInventory.length);
+    if(clientJSONInventory.length!=0){
+    var inventorytable = new Tabulator("#inventoryTable", {layout:"fitDataTable", data:clientJSONInventory, columns:
+    [
+      {title:"Name",field:"Name"},
+      {title:"Rarity",field:"rarity"},
+      {title:"Count",field:"NumberOwned"},
+      {title:"Enhancement0",field:"Enhancement0"},
+      {title:"Enhancement1",field:"Enhancement1"},
+      {title:"Enhancement2",field:"Enhancement2"},
+      {title:"Type",field:"InventoryType"}
+    ]
+  });}
+    if(clientJSONInventory.length==0){
+      var myInventory = document.getElementById('inv_div');
+      var inventoryButton = document.getElementById('inventoryButton');
+      myInventory.style.display='none';
+      inventoryButton.display='none';
+    }
+    </script>
+  </div>
+  <div id="cons_div" style="display: block;">
+  <h1>Consumables</h1>
+    <button onclick="toggleConsumables()" id="consumablesButton">Hide Consumables</button>
+    <button onclick="exportJSONConsumables(clientCSVConsumables,clientuserName)" id="consumablesDownloadButton">Download Consumables</button>
+    <div><pre id="consumables" style="display: none;"><%= consumablesCSV %></pre></div>
+    <div id="consumablesTable" style="display: inline-block;"></div>
+    <script type="text/javascript">
+    //console.log("consumables",clientJSONConsumables.length);
+    if(clientJSONConsumables.length!=0){
+    var consumablesTable = new Tabulator("#consumablesTable", {layout:"fitDataTable", data:clientJSONConsumables,columns:
+    [
+      {title:"Name",field:"itemName"},
+      {title:"Count",field:"NumberOwned"},
+      {title:"Effects",field:"effects"},
+      {title:"Description",field:"desc_short"}
+    ]
+  });}
+    if(clientJSONConsumables.length==0){
+      var myCons = document.getElementById('cons_div');
+      var consumablesButton = document.getElementById('consumablesButton');
+      myCons.style.display='none';
+      consumablesButton.display='none';
+}
+    </script>
+  </div>
+</body>
+</html>
+<!--exportCSVUnits()
+exportJSONUnits()
+exportCSVMoogles()
+exportCSVPots()
+exportCSVCactuars()
+exportCSVInventory()
+exportJSONConsumables()
+-->

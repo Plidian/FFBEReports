@@ -1,0 +1,36 @@
+/* --------------------------------------------------------------- *\
+   ffbe.css
+
+   Import wrapper for all CSS. Recommend minifying before
+   taking live.
+
+\* --------------------------------------------------------------- */
+
+/* External Dependencies */
+@import url("//fonts.googleapis.com/css2?family=Medula+One&display=swap");
+@import url("//stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css");
+@import url("//cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css");
+@import url("/vendor/select2-bootstrap4/select2-bootstrap4.min.css");
+@import url("/vendor/toast/toast.min.css");
+
+@import URL('ffbe.variables.css');
+@import URL('ffbe.structure.css');
+
+@import URL('text.css');
+@import URL('buttons.css');
+@import URL('forms.css');
+@import URL('tables.css');
+@import URL('alerts.css');
+@import URL('icons.css');
+@import URL('illustrations.css');
+
+@import URL('contribute.css');
+@import URL('encyclopedia.css');
+@import URL('homepage.css');
+@import URL('my-units.css');
+@import URL('my-inventory.css');
+@import URL('my-espers.css');
+@import URL('unit-builder.css');
+@import URL('unit-search.css');
+
+@import URL('ffbe.themes.css');

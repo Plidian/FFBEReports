@@ -1,0 +1,36 @@
+{
+  "name": "ffbereports",
+  "version": "0.0.0",
+  "description": "A fresh build of the ffbe reports website",
+  "main": "app",
+  "scripts": {"start": "node app"  },
+  "author": "Nathan Roberts",
+  "license": "MIT",
+  "dependencies": {
+    "alasql": "^0.6.3",
+    "connect-mongo": "^3.2.0",
+    "mongoose": "^5.9.26",
+    "client-sessions": "^0.8.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-fileupload": "^1.1.9",
+    "express-session": "^1.17.1",
+    "googleapis": "^56.0.0",
+    "http-errors": "~1.6.3",
+    "lodash": "^4.17.19",
+    "mime-types": "^2.1.27",
+    "morgan": "~1.9.1",
+    "mssql": "^6.2.1",
+    "node-fetch": "^2.6.0",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
+    "request": "^2.88.2",
+    "tabulator": "^0.2.40"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "nodemon": "^2.0.4"
+  }
+}

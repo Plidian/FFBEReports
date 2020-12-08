@@ -1,0 +1,5 @@
+/config/config.json
+/server/dbconfig.json
+.config.json
+node_modules/
+googleOAuth/
