@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "description": "A fresh build of the ffbe reports website",
   "main": "app",
-  "scripts": {"start": "node app"  },
+  "scripts": {
+    "start": "node app"
+  },
   "author": "Nathan Roberts",
   "license": "MIT",
   "dependencies": {

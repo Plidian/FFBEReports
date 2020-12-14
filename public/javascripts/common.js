@@ -974,7 +974,6 @@ exports.flattenOwnedUnits = function(e,username) {
     if(!newArr[i].tmr){newArr[i].tmr=0;}
     if(!newArr[i].lbLevel){newArr[i].lbLevel=0;}
     if(!newArr[i].unitLb){newArr[i].unitLb=0;}
-    let level=newArr[i].level;
     if(!newArr[i].pots.hp||newArr[i].pots.hp===0){hp=0;}else{hp=newArr[i].pots.hp;}
     if(!newArr[i].pots.mp||newArr[i].pots.mp===0){mp=0;}else{mp=newArr[i].pots.mp;}
     if(!newArr[i].pots.atk||newArr[i].pots.atk===0){atk=0;}else{atk=newArr[i].pots.atk;}
@@ -1025,7 +1024,7 @@ exports.flattenOwnedUnits = function(e,username) {
     'uniqueId':uniqueId,
     'stmr':stmr,
     'tmr':tmr,
-    'level':level,
+    'level':Number(newArr[i].level),
     'HPpotsUsed':hp,
     'MPpotsUsed':mp,
     'ATKpotsUsed':atk,
